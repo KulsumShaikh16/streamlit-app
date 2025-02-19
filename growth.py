@@ -58,7 +58,7 @@ if uploaded_file:
                         st.write("Duplicates shown")
 
         st.subheader("Select columns to Keep")
-        selected_columns = st.multiselect("Select columns to keep {file.name}", df.columns, defauly=df.columns)
+        selected_columns = st.multiselect(f"Select columns to keep {file.name}", df.columns, defauly=df.columns)
         df = df[selected_columns]
   #data visualization
         st.subheader("Data Visualization")
