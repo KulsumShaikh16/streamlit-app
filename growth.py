@@ -75,15 +75,15 @@ if uploaded_file:
                 file_name = file.name.replace(file_ext, ".csv")
                 mime_type = "text/csv"
 
-           if convert_format == "xlsx":
-    df.to_excel(buffer, index=False)
-    file_name = file.name.replace(file_ext, ".xlsx")
-    mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    buffer.seek(0)
-    st.download_button(
-        label=f"Click here to download {file_name}",
-        data=buffer,
-        file_name=file_name,
-        mime=mime_type,
-    )
+            elif convert_format == "xlsx":
+                df.to_excel(buffer, index=False)
+                file_name = file.name.replace(file_ext, ".xlsx")
+                mine_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                buffer.seek(0)
+                st.download_button(
+                    label=f"Click here to download {file_name}",
+                    data=buffer,
+                    file_name=file_name,
+                    mime=mine_type,
+                )
         st.success("All files processed successfully.")
