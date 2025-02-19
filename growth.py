@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from io import BytesIO
 
-st.set_page_config(page_title="Data Sweeper", layout="wide")
+st.set_page_config(page_title="Data Growth Analyzer", layout="wide")
 
 # Custom CSS
 st.markdown(
@@ -19,8 +19,8 @@ st.markdown(
 )
 
 # Title and description
-st.title("Data Growth")
-st.write("This page is for data growth")
+st.title("📊 Data Growth Analyzer")
+st.write("Welcome to the Data Growth Analyzer! 🚀 Upload your datasets (CSV or Excel) and explore insights, clean your data, and visualize trends effortlessly. Let's grow your data! 🌱")
 
 # File upload
 uploaded_file = st.file_uploader("Upload a file", type=["csv", "xlsx"], accept_multiple_files=True)
@@ -42,7 +42,7 @@ if uploaded_file:
         st.dataframe(df.head())
 
         # Data cleaning and transformation
-        st.subheader("Data Cleaning and Transformation")
+        st.subheader("🧹 Data Cleaning and Transformation")
         if st.checkbox(f"Remove duplicates {file.name}"):
             col1, col2 = st.columns(2)
             with col1:
@@ -56,17 +56,17 @@ if uploaded_file:
                     df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].mean())
                     st.write("Duplicates shown")
 
-        st.subheader("Select columns to Keep")
+        st.subheader("🔍 Select Columns to Keep")
         selected_columns = st.multiselect(f"Select columns to keep {file.name}", df.columns, default=df.columns)
         df = df[selected_columns]
 
         # Data visualization
-        st.subheader("Data Visualization")
+        st.subheader("📈 Data Visualization")
         if st.checkbox(f"Show visualizations {file.name}"):
             st.bar_chart(df.select_dtypes(include="number").iloc[:, :2])
 
         # Conversion options
-        st.subheader("Conversion Options")
+        st.subheader("🔄 Conversion Options")
         convert_format = st.radio(f"Convert {file.name} to", ["csv", "xlsx"], key=file.name)
         if st.button(f"Convert {file.name}"):
             buffer = BytesIO()
@@ -78,12 +78,13 @@ if uploaded_file:
             elif convert_format == "xlsx":
                 df.to_excel(buffer, index=False)
                 file_name = file.name.replace(file_ext, ".xlsx")
-                mine_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 buffer.seek(0)
                 st.download_button(
                     label=f"Click here to download {file_name}",
                     data=buffer,
                     file_name=file_name,
-                    mime=mine_type,
+                    mime=mime_type,
                 )
-        st.success("All files processed successfully.")
+
+        st.success("✅ All files processed successfully.")
